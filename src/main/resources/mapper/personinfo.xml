@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.attendance.dao.PersonInfoDao">
+
+    <select id="queryPersonInfoListByUserCode" resultType="com.example.attendance.entity.PersonInfo">
+        select * from personinfo where usercode = #{userCode}
+    </select>
+
+    <select id="queryPersonInfoListByProjectTeamLeaderCode" resultType="com.example.attendance.entity.PersonInfo">
+        select * from personinfo where projectTeamLeaderCode = #{userCode}
+    </select>
+
+    <select id="queryPersonInfoListByFunctionTeamLeaderCode" resultType="com.example.attendance.entity.PersonInfo">
+        select * from personinfo where functionTeamLeaderCode = #{userCode}
+    </select>
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.attendance.dao.AttendanceInfoDao">
+
+    <insert id="inserAttendanceInfo" parameterType="com.example.attendance.entity.AttendanceInfo">
+        REPLACE
+        INTO attendanceinfo (userCode, attendanceDate, userName, attendanceState, signInTime,
+                                    signOutTime,clockInHours,calculationAttendanceHour,workTaskHour,workTaskHourTFS,differenceTFSAndCalculationHour,calculationValidHour,exceedTime,noClockInLeave,clockInMidLeave,dateType) VALUES
+            (
+        #{userCode},
+        #{attendanceDate},
+        #{userName},
+        #{attendanceState},
+        #{signInTime},
+        #{signOutTime},
+        #{clockInHours},
+        #{calculationAttendanceHour},
+        #{workTaskHour},
+        #{workTaskHourTFS},
+        #{differenceTFSAndCalculationHour},
+        #{calculationValidHour},
+        #{exceedTime},
+        #{noClockInLeave},
+        #{clockInMidLeave},
+        #{dateType}
+        )
+    </insert>
+
+    <insert id="insertBatchAttendanceInfo" parameterType="java.util.List">
+        INSERT INTO attendanceinfo (userCode, attendanceDate, userName, attendanceState, signInTime,signOutTime,clockInHours,
+                    calculationAttendanceHour,workTaskHour,workTaskHourTFS,differenceTFSAndCalculationHour,calculationValidHour,
+                    exceedTime,noClockInLeave,clockInMidLeave,dateType)
+        VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.userCode},#{item.attendanceDate},#{item.userName},#{item.attendanceState},#{item.signInTime},#{item.signOutTime},#{item.clockInHours},
+             #{item.calculationAttendanceHour},#{item.workTaskHour},#{item.workTaskHourTFS},#{item.differenceTFSAndCalculationHour},
+             #{item.calculationValidHour},#{item.exceedTime},#{item.noClockInLeave},#{item.clockInMidLeave},#{item.dateType})
+        </foreach>
+        ON conflict(userCode,attendanceDate) DO UPDATE SET
+        userName=EXCLUDED.userName,attendanceState=EXCLUDED.attendanceState,signInTime=EXCLUDED.signInTime,
+        signOutTime=EXCLUDED.signOutTime,clockInHours=EXCLUDED.clockInHours,calculationAttendanceHour=EXCLUDED.calculationAttendanceHour,workTaskHour=EXCLUDED.workTaskHour,
+        workTaskHourTFS=EXCLUDED.workTaskHourTFS,differenceTFSAndCalculationHour=EXCLUDED.differenceTFSAndCalculationHour,calculationValidHour=EXCLUDED.calculationValidHour,
+        exceedTime=EXCLUDED.exceedTime,noClockInLeave=EXCLUDED.noClockInLeave,clockInMidLeave=EXCLUDED.clockInMidLeave,dateType=EXCLUDED.dateType
+    </insert>
+
+    <select id="queryAttendanceInfoListByUserCode" resultType="com.example.attendance.entity.AttendanceInfo">
+        select * from attendanceinfo
+        <where>
+            AND userCode in
+            <foreach collection="collection" item="userCode" open="(" separator="," close=")">
+                #{userCode}
+            </foreach>
+
+        </where>
+    </select>
+</mapper>

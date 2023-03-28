@@ -19,10 +19,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @description: 此控制层，进行页面上进行导入考勤的相关操作
  * @author dongzhibo
- * @date 2023/3/16 16:33
  * @version 1.0
+ * @description: 此控制层，进行页面上进行导入考勤的相关操作
+ * @date 2023/3/16 16:33
  */
 @Controller
 @RequestMapping("/importAttendance")
@@ -41,7 +41,7 @@ public class ControllerImportAttendance {
     private ExportExcelDataService exportExcelDataService;
 
     @RequestMapping("/importRawData")
-    public void importAttendAnce(){
+    public void importAttendAnce() {
         File file = new File("E:\\bbb.xls");
         MultipartFile multipartFile = importExcelDataService.getMultipartFile(file);
         List<AttendanceInfoVo> attendanceInfoVoList = importExcelDataService.importAttendanceData(multipartFile, AttendanceInfoVo.class);
@@ -50,9 +50,9 @@ public class ControllerImportAttendance {
     }
 
     @RequestMapping("/getAttendance")
-    public void getAttendanceByUserCode(@RequestParam(value = "userCode") String userCode, HttpServletResponse response){
-        List<AttendanceInfo> attendanceInfoList = personInfoService.getAttendanceInfo(userCode);
-        exportExcelDataService.exportExcelData(response,"用户表",attendanceInfoList);
+    public void getAttendanceByUserCode(@RequestParam(value = "userCode") String userCode,@RequestParam(value = "flag") boolean flag, HttpServletResponse response) {
+        List<AttendanceInfo> attendanceInfoList = attendanceInfoService.getAttendanceInfo(userCode, flag);
+        exportExcelDataService.exportExcelData(response, "用户表", attendanceInfoList);
         System.out.println("111111111111");
     }
 

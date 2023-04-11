@@ -103,18 +103,18 @@ public class AttendanceInfoService {
             } else {
                 if (attendanceInfo.getWorkTaskHourTFS() != null && attendanceInfo.getWorkTaskHour() != null
                         && attendanceInfo.getWorkTaskHourTFS().compareTo(attendanceInfo.getWorkTaskHour()) <= 0) {
-                    if (CommonUtil.equals(attendanceInfo.getDateType(), "工作日")) {
-                        if (attendanceInfo.getWorkTaskHourTFS().compareTo(attendanceInfo.getCalculationAttendanceHour()) >= 0
-                                && attendanceInfo.getWorkTaskHourTFS().compareTo(attendanceInfo.getCalculationAttendanceHour().add(new BigDecimal("0.1"))) == -1) {
-                            attendanceInfoTrueList.add(attendanceInfo);
-                        } else {
-                            attendanceInfoErrorList.add(attendanceInfo);
-                        }
-                    } else if (CommonUtil.equals(attendanceInfo.getDateType(), "节假日")) {
+                    if (attendanceInfo.getWorkTaskHour().compareTo(attendanceInfo.getCalculationAttendanceHour()) == 0) {
                         if (attendanceInfo.getWorkTaskHourTFS().compareTo(attendanceInfo.getCalculationAttendanceHour()) <= 0
                                 && attendanceInfo.getWorkTaskHourTFS().compareTo(attendanceInfo.getCalculationAttendanceHour().subtract(new BigDecimal("0.1"))) == 1) {
                             attendanceInfoTrueList.add(attendanceInfo);
                         } else {
+                            attendanceInfoErrorList.add(attendanceInfo);
+                        }
+                    }else {
+                        if (attendanceInfo.getWorkTaskHourTFS().compareTo(attendanceInfo.getCalculationAttendanceHour()) >= 0
+                                && attendanceInfo.getWorkTaskHourTFS().compareTo(attendanceInfo.getCalculationAttendanceHour().add(new BigDecimal("0.1"))) == -1) {
+                            attendanceInfoTrueList.add(attendanceInfo);
+                        }else {
                             attendanceInfoErrorList.add(attendanceInfo);
                         }
                     }

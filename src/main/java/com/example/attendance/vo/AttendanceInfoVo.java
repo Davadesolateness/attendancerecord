@@ -116,13 +116,13 @@ public class AttendanceInfoVo {
      * 未打卡请假
      */
     @ExcelImport("未打卡请假")
-    private String noClockInLeave;
+    private BigDecimal noClockInLeave;
 
     /**
      * 已打卡中途请假
      */
     @ExcelImport("已打卡中途请假")
-    private String clockInMidLeave;
+    private BigDecimal clockInMidLeave;
 
     /**
      * 工作日/节假日
@@ -272,19 +272,19 @@ public class AttendanceInfoVo {
         this.exceedTime = exceedTime;
     }
 
-    public String getNoClockInLeave() {
+    public BigDecimal getNoClockInLeave() {
         return noClockInLeave;
     }
 
-    public void setNoClockInLeave(String noClockInLeave) {
+    public void setNoClockInLeave(BigDecimal noClockInLeave) {
         this.noClockInLeave = noClockInLeave;
     }
 
-    public String getClockInMidLeave() {
+    public BigDecimal getClockInMidLeave() {
         return clockInMidLeave;
     }
 
-    public void setClockInMidLeave(String clockInMidLeave) {
+    public void setClockInMidLeave(BigDecimal clockInMidLeave) {
         this.clockInMidLeave = clockInMidLeave;
     }
 
